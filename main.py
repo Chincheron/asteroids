@@ -2,10 +2,12 @@
 # the open-source pygame library
 # throughout this file
 import pygame
+import sys
 from constants import *
 from player import *
 from asteroid import *
 from asteroidfield import *
+from circleshape import *
 
 def main():
     pygame.init()
@@ -38,6 +40,12 @@ def main():
         #update updateable group
         updateable.update(dt)
         
+        #check for collision
+        for i in asteroid:
+            if i.collision_detect(player_one):
+                print("GAME OVER")
+                sys.exit()
+
         screen.fill((0,0,0))
         
         #Draw all items
