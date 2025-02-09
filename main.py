@@ -1,3 +1,4 @@
+#TODO(detecting collision with player occasionally when no asteroids nearby. figure out why)
 # this allows us to use code from
 # the open-source pygame library
 # throughout this file
@@ -45,15 +46,15 @@ def main():
         updateable.update(dt)
         
         #check for collision with player
-        for i in asteroids:
-            if i.collision_detect(player_one):
+        for asteroid in asteroids:
+            if asteroid.collision_detect(player_one):
                 print("GAME OVER")
                 sys.exit()
 
-        for i in asteroids:
+        for asteroid in asteroids:
             for shot in shots:
-                if i.collision_detect(shot):
-                    i.kill()
+                if asteroid.collision_detect(shot):
+                    asteroid.split()
 
         screen.fill((0,0,0))
         
