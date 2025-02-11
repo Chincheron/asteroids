@@ -53,6 +53,7 @@ def main():
         for asteroid in asteroids:
             if asteroid.collision_detect(player_one):
                 print("GAME OVER")
+                print(f"Your final score was {score.running_score_destroy_asteroid}")
                 sys.exit()
 
         for asteroid in asteroids:
