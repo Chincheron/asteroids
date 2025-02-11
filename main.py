@@ -10,6 +10,7 @@ from asteroid import *
 from asteroidfield import *
 from circleshape import *
 from shot import *
+from scoring import *
 
 def main():
     pygame.init()
@@ -37,6 +38,9 @@ def main():
     #create asteroid field object
     asteroid_field = AsteroidField()
 
+    #create score object
+    score = ScoringSystem()
+
     while True:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -49,12 +53,16 @@ def main():
         for asteroid in asteroids:
             if asteroid.collision_detect(player_one):
                 print("GAME OVER")
+                print(f"Your final score was {score.running_score_destroy_asteroid}")
+                score.write_high_score(score.running_score_destroy_asteroid)
+                score.display_high_score()
                 sys.exit()
 
         for asteroid in asteroids:
             for shot in shots:
                 if asteroid.collision_detect(shot):
-                    asteroid.split()
+                    destroyed_radius = asteroid.split()
+                    score.score_destroy_asteroid(destroyed_radius)
                     shot.kill()
 
         screen.fill((0,0,0))
