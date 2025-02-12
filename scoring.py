@@ -1,3 +1,4 @@
+import json
 from constants import *
 
 class ScoringSystem():
@@ -17,6 +18,7 @@ class ScoringSystem():
         #print(self.running_score_destroy_asteroid)
 
     def write_high_score(self, high_score):
+        open("scoring/test.txt")
         #create file if not exist
         #store as number (keep 10 highest scores)
         #need to 1) read current scores (figure out how to store scores in text and then read. can you store a lsit in text?)
@@ -25,6 +27,7 @@ class ScoringSystem():
         # other considerations: Keep values sorted in text file
         #                       
         print(f"write high score: {high_score}")
+        return f"write high score: {high_score}"
     
     def display_high_score(self):
         #intended to display high score at game over in console 
