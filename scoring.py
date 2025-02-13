@@ -18,15 +18,41 @@ class ScoringSystem():
         #print(self.running_score_destroy_asteroid)
 
     def write_high_score(self, high_score):
-        open("scoring/test.txt")
-        #create file if not exist
-        #store as number (keep 10 highest scores)
-        #need to 1) read current scores (figure out how to store scores in text and then read. can you store a lsit in text?)
-        #           2) check if new score is higher than any of old scores
-        #               3) if yes, delete lowest old score and add new score
-        # other considerations: Keep values sorted in text file
-        #                       
-        print(f"write high score: {high_score}")
+
+        #file for storing high scores
+        file_path = "scoring/test.txt"
+
+        #create high score file if it doesn't exist
+        try:
+            with open(file_path, "x") as file:
+            #    content = file.read()
+                print(f"File '{file_path}' created succesfully")
+        except FileExistsError:
+            print(f"File '{file_path}' already exists") 
+
+        #pull current high scores from file
+        with open(file_path, "r") as file:
+            current_scores = json.load(file)
+        
+        #Decide whether score is new high score
+        min_score = min(current_scores)
+        current_scores.sort(reverse=True)
+        new_scores = current_scores.copy()
+        if high_score <= min_score and len(current_scores) >= 10:
+            pass
+        else:
+            if len(current_scores) >= 10:
+                new_scores.pop()
+                new_scores.append(high_score)
+            else:
+                new_scores.append(high_score)
+        new_scores.sort(reverse=True)
+
+
+        #write new list keep 10 highest scores)
+        with open(file_path, "w") as file:
+            json.dump(new_scores, file)
+
         return f"write high score: {high_score}"
     
     def display_high_score(self):
